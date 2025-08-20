@@ -1,9 +1,10 @@
 import "./App.css";
+import { AppRouter } from "./router/AppRouter";
 
 export const App = () => {
   return (
     <>
-      <h3 className="text-red-600">FSFDSF</h3>
+      <AppRouter/>
     </>
   );
 }; 

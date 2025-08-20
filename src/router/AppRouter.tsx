@@ -10,7 +10,13 @@ export const AppRouter = () => {
         {routes.map(({ authOnly, element: Component, isIndex, ...route }: IRoute) => {
           const routeProps = {
             ...route,
-            element: authOnly ? <Layout><Component /></Layout> : <Component />,
+            element: authOnly ? (
+              <Layout>
+                <Component />
+              </Layout>
+            ) : (
+              <Component />
+            ),
           };
 
           if (isIndex) {

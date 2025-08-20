@@ -14,7 +14,7 @@ export const NotFound = () => {
           className="text-white/60 text-xl mt-10 border border-white/60 px-4 py-2 flex items-center gap-2.5 hover:border-white hover:text-white duration-300 ease-in-out"
           href={Routes.HOME}
         >
-          Back to Home 
+          Back to Home
         </a>
       </div>
     </main>
