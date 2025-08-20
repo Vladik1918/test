@@ -1,10 +1,11 @@
-import { useState, type ChangeEvent, useEffect } from "react";
+import { useState, type ChangeEvent, useEffect } from "react"; 
 import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/hooks/hooks";
 import { InvitesList } from "../components/TripAccess/InviteLinks/InviteLinks";
 import { InviteForm } from "../components/TripAccess/InviteForm/InviteForm";
 import { PageMessage } from "../components/TripAccess/Message/Message";
 import { sendInvite, fetchInvites } from "../features/inviteTrips/inviteThunks";
+import { validateInvite } from "../utils/validateInvite"; // <-- імпорт
 
 export const TripAccessPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,16 +21,8 @@ export const TripAccessPage = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value);
 
-  const validateInvite = (email: string): string | null => {
-    if (trip.ownerId !== user?.uid) return "Only owner can manage access";
-    if (!email) return "Email is required";
-    if (email === user?.email) return "You cannot invite yourself";
-    if (invites.some((i) => i.email === email && !i.accepted)) return "Invite already sent";
-    return null;
-  };
-
   const handleSendInvite = () => {
-    const error = validateInvite(email);
+    const error = validateInvite(email, trip, user, invites);
     if (error) return alert(error);
 
     dispatch(sendInvite({ tripId: trip.id, email }));
