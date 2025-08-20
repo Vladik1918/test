@@ -2,8 +2,8 @@ export interface IAccessInvite {
   id: string;
   tripId: string;
   email: string;
-  token: string; 
-  status: "pending" | "accepted" | "revoked";
+  token: string;
+  status: "pending" | "accepted" | "revoked"; 
   createdAt: string;
 }
 

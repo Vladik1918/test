@@ -1,4 +1,4 @@
-import { type ChangeEvent } from 'react'
+import { type ChangeEvent } from 'react';
 
 export const InviteForm = ({
   email,
@@ -16,7 +16,7 @@ export const InviteForm = ({
       onChange={onEmailChange}
       className="border p-2 mr-2 rounded"
     />
-    <button
+    <button 
       onClick={onSend}
       className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
     >
@@ -24,4 +24,3 @@ export const InviteForm = ({
     </button>
   </div>
 );
-

@@ -1,7 +1,6 @@
-// src/features/trips/inviteSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
-import type { InviteState } from "./inviteTypes";
-import { sendInvite,  acceptInvite} from "./inviteThunks";
+import { sendInvite, acceptInvite, fetchInvites } from "./inviteThunks";
+import type { InviteState } from "./types";
 
 const initialState: InviteState = {
   invites: [],
@@ -19,7 +18,6 @@ const inviteSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // --- sendInvite ---
       .addCase(sendInvite.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -30,7 +28,20 @@ const inviteSlice = createSlice({
       })
       .addCase(sendInvite.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || "Send invite failed";
+        state.error = (action.payload as string) || "Send invite failed";
+      })
+
+      .addCase(fetchInvites.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchInvites.fulfilled, (state, action) => {
+        state.loading = false;
+        state.invites = action.payload;
+      })
+      .addCase(fetchInvites.rejected, (state, action) => {
+        state.loading = false;
+        state.error = (action.payload as string) || "Fetch invites failed";
       })
 
       .addCase(acceptInvite.pending, (state) => {
@@ -39,12 +50,12 @@ const inviteSlice = createSlice({
       })
       .addCase(acceptInvite.fulfilled, (state, action) => {
         state.loading = false;
-        const invite = state.invites.find(inv => inv.id === action.payload);
+        const invite = state.invites.find((inv) => inv.id === action.payload);
         if (invite) invite.accepted = true;
       })
       .addCase(acceptInvite.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || "Accept invite failed";
+        state.error = (action.payload as string) || "Accept invite failed";
       });
   },
 });

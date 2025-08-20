@@ -1,4 +1,3 @@
-// src/pages/TripDetailsPage.tsx
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../app/hooks/hooks";
