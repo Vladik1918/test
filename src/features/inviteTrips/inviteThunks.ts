@@ -1,11 +1,10 @@
-// src/features/trips/inviteThunks.ts
+
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../../api/firebase";
 import { collection, addDoc, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import type { IInvite } from "./inviteTypes";
 
-// Створення інвайту
 export const sendInvite = createAsyncThunk<
   IInvite,
   { tripId: string; email: string }
@@ -13,7 +12,6 @@ export const sendInvite = createAsyncThunk<
   "invite/send",
   async ({ tripId, email }, { rejectWithValue }) => {
     try {
-      // Перевірка на дубль
       const invitesCol = collection(db, "invites");
       const q = query(invitesCol, where("tripId", "==", tripId), where("email", "==", email), where("accepted", "==", false));
       const snapshot = await getDocs(q);
@@ -26,7 +24,7 @@ export const sendInvite = createAsyncThunk<
         email,
         token,
         createdAt: now,
-        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(), // 24h
+        expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(), 
       };
 
       const docRef = await addDoc(invitesCol, inviteData);

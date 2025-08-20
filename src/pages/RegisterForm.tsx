@@ -8,9 +8,9 @@ export const RegisterForm = () => {
   const navigate = useNavigate();
   const { loading, error, user } = useAppSelector((state) => state.auth);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   useEffect(() => {   
     if (user) navigate("/");

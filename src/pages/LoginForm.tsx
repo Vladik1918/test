@@ -8,11 +8,11 @@ export const LoginForm = () => {
   const navigate = useNavigate();
   const { loading, error, user } = useAppSelector((state) => state.auth);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    if (user) navigate("/"); // редирект після успішного логіну
+    if (user) navigate("/"); 
   }, [user, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
